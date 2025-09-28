@@ -1,0 +1,79 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    name: Deploy API
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build API
+        run: npm run build --workspace=apps/api
+        
+      # Add your deployment steps here
+      - name: Deploy API
+        run: echo "Deploy API to your hosting platform"
+
+  deploy-parent-portal:
+    runs-on: ubuntu-latest
+    name: Deploy Parent Portal
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build Parent Portal
+        run: npm run build --workspace=apps/parent-portal
+        
+      # Add your deployment steps here (e.g., Vercel, Netlify)
+      - name: Deploy Parent Portal
+        run: echo "Deploy Parent Portal to your hosting platform"
+
+  deploy-staff-dashboard:
+    runs-on: ubuntu-latest
+    name: Deploy Staff Dashboard
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build Staff Dashboard
+        run: npm run build --workspace=apps/staff-dashboard
+        
+      # Add your deployment steps here (e.g., Vercel, Netlify)
+      - name: Deploy Staff Dashboard
+        run: echo "Deploy Staff Dashboard to your hosting platform"
