@@ -26,10 +26,6 @@
     "name": "Delonte Jones",
     "email": "hello@intakeoff.com"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -72,10 +68,10 @@
     "turbo": "^2.5.8",
     "typescript": "^5.2.2"
   },
-  "packageManager": "npm@10.0.0",
+  "packageManager": "pnpm@9.0.1",
   "engines": {
     "node": ">=20.0.0",
-    "npm": ">=10.0.0"
+    "pnpm": ">=9.0.1"
   },
   "private": true,
   "turbo": {
