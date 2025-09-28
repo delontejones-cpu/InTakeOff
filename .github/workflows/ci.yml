@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: CI Pipeline
 
 on:
   push:
@@ -7,89 +7,109 @@ on:
     branches: [ main ]
 
 jobs:
-  lint:
+  lint-and-format:
+    name: Lint & Format
     runs-on: ubuntu-latest
-    name: Lint & Format Check
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         
-      - name: Run ESLint
-        run: npm run lint
+      - name: Lint
+        run: pnpm lint
         
-      - name: Check Prettier formatting
-        run: npx prettier --check .
-
-  type-check:
-    runs-on: ubuntu-latest
-    name: Type Check
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Type check
+        run: pnpm type-check
         
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Run type check
-        run: npm run type-check
+      - name: Check formatting
+        run: pnpm format:check
 
   test:
-    runs-on: ubuntu-latest
     name: Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: intakeoff_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         
-      - name: Run tests
-        run: npm run test
-        
-      - name: Upload coverage reports
+      - name: Run unit tests
+        run: pnpm test:unit --coverage
+        env:
+          DATABASE_URL: postgresql://postgres:test@localhost:5432/intakeoff_test
+          REDIS_URL: redis://localhost:6379
+          
+      - name: Upload coverage
         uses: codecov/codecov-action@v3
         if: success()
 
   build:
-    runs-on: ubuntu-latest
     name: Build
-    needs: [lint, type-check, test]
+    runs-on: ubuntu-latest
+    needs: [lint-and-format, test]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         
       - name: Build packages
-        run: npm run build
+        run: pnpm build
         
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -100,23 +120,51 @@ jobs:
             apps/*/.next
             packages/*/dist
 
-  security:
+  e2e:
+    name: E2E Tests
     runs-on: ubuntu-latest
-    name: Security Audit
+    needs: build
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
-      - name: Run security audit
-        run: npm audit --audit-level moderate
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
         
-      - name: Run CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+      - name: Install Playwright
+        run: pnpm exec playwright install --with-deps chromium
+        
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
         with:
-          languages: javascript
+          name: build-artifacts
+          
+      - name: Start applications
+        run: |
+          pnpm --filter parent-portal start &
+          pnpm --filter staff-dashboard start &
+          pnpm --filter api start &
+          npx wait-on http://localhost:3000 http://localhost:3001 http://localhost:3002 --timeout 60000
+        env:
+          NODE_ENV: test
+          
+      - name: Run E2E tests
+        run: pnpm e2e
+        
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/

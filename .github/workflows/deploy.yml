@@ -1,79 +1,83 @@
-name: Deploy to Production
+name: Deploy
 
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*' ]
   workflow_dispatch:
 
 jobs:
-  deploy-api:
+  deploy-staging:
+    name: Deploy to Staging
     runs-on: ubuntu-latest
-    name: Deploy API
-    environment: production
+    if: github.ref == 'refs/heads/main'
+    environment: staging
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         
-      - name: Build API
-        run: npm run build --workspace=apps/api
-        
-      # Add your deployment steps here
-      - name: Deploy API
-        run: echo "Deploy API to your hosting platform"
+      - name: Build applications
+        run: pnpm build
+        env:
+          NODE_ENV: production
+          
+      - name: Deploy to staging
+        run: echo "Deploy to staging environment"
+        # Add your staging deployment commands here
 
-  deploy-parent-portal:
+  deploy-production:
+    name: Deploy to Production
     runs-on: ubuntu-latest
-    name: Deploy Parent Portal
+    if: startsWith(github.ref, 'refs/tags/v')
     environment: production
+    needs: []
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         
-      - name: Build Parent Portal
-        run: npm run build --workspace=apps/parent-portal
+      - name: Build applications
+        run: pnpm build
+        env:
+          NODE_ENV: production
+          
+      - name: Deploy to production
+        run: echo "Deploy to production environment"
+        # Add your production deployment commands here
         
-      # Add your deployment steps here (e.g., Vercel, Netlify)
-      - name: Deploy Parent Portal
-        run: echo "Deploy Parent Portal to your hosting platform"
-
-  deploy-staff-dashboard:
-    runs-on: ubuntu-latest
-    name: Deploy Staff Dashboard
-    environment: production
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Build Staff Dashboard
-        run: npm run build --workspace=apps/staff-dashboard
-        
-      # Add your deployment steps here (e.g., Vercel, Netlify)
-      - name: Deploy Staff Dashboard
-        run: echo "Deploy Staff Dashboard to your hosting platform"
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false

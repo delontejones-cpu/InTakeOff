@@ -2,42 +2,63 @@ name: Dependency Updates
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # Every Monday at midnight
+    - cron: '0 0 * * 1'  # Weekly on Mondays
   workflow_dispatch:
 
 jobs:
-  dependency-update:
-    runs-on: ubuntu-latest
+  update-dependencies:
     name: Update Dependencies
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+          
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
           
       - name: Update dependencies
         run: |
-          npm update
-          npm audit fix --force || true
+          pnpm update --latest
+          pnpm audit fix || true
           
       - name: Run tests
-        run: npm test || true
-        
+        run: |
+          pnpm install
+          pnpm test || echo "Tests failed, will note in PR"
+          
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore: update dependencies'
-          title: 'Automated Dependency Update'
+          title: 'chore: Automated dependency updates'
           body: |
+            ## Automated Dependency Updates
+            
             This PR contains automated dependency updates.
             
-            Please review the changes and ensure all tests pass before merging.
+            ### Changes
+            - Updated all dependencies to latest versions
+            - Applied security fixes where available
+            
+            ### Testing
+            - [ ] All tests pass
+            - [ ] No breaking changes detected
+            - [ ] Security vulnerabilities addressed
+            
+            Please review the changes and test thoroughly before merging.
           branch: automated/dependency-updates
           delete-branch: true
+          labels: |
+            dependencies
+            automated

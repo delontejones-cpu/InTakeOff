@@ -1,96 +1,138 @@
-# Parent Portal & Staff Dashboard Monorepo
+# InTakeOff - ABA Therapy Intake Management Platform
 
-This is a TypeScript monorepo containing:
-- Next.js React frontend applications (Parent Portal & Staff Dashboard)  
-- NestJS backend API server
-- Shared packages for design tokens, SDK, and configuration
+A HIPAA-compliant SaaS platform that streamlines the intake process for ABA therapy clinics, reducing delays from 4-6 weeks to under 2 weeks while improving insurance claim accuracy.
 
-## Architecture
-- **apps/parent-portal**: Next.js app for parent interface (port 3000)
-- **apps/staff-dashboard**: Next.js app for staff interface (port 3001)  
-- **apps/api**: NestJS backend server (port 3002)
-- **packages/design-tokens**: Shared design system tokens
-- **packages/sdk**: TypeScript client SDK
-- **packages/config**: Shared configuration and prompts
+## 🏗️ Architecture
 
-## Quick Start
+**Monorepo Structure:**
+- **Parent Portal** (Next.js) - Mobile-first interface for families
+- **Staff Dashboard** (Next.js) - Clinic management and workflow tools  
+- **API Server** (NestJS) - HIPAA-compliant backend with AI integration
+- **Shared Packages** - Design system, SDK, configuration
+
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- npm 10+
-- Git (for version control)
+- Node.js 20+
+- pnpm 9+ (via `corepack enable`)
+- Docker Desktop
+- Git
 
 ### Installation
 ```bash
-# Install dependencies
-npm install
+# Clone and install
+git clone <your-repo-url>
+cd intakeoff
+pnpm install
 
-# Build shared packages
-npm run build:packages
-
-# Start all applications in development
-npm run dev
+# Start development environment
+docker-compose up -d postgres redis
+pnpm dev
 ```
 
-### Development
-- **Parent Portal**: http://localhost:3000
-- **Staff Dashboard**: http://localhost:3001  
-- **API Server**: http://localhost:3002
+**Access Points:**
+- Parent Portal: http://localhost:3000
+- Staff Dashboard: http://localhost:3001
+- API Server: http://localhost:3002
 
-### Scripts
-- `npm run dev` - Start all applications in development mode
-- `npm run build` - Build all packages and applications
-- `npm run test` - Run tests across the monorepo
-- `npm run lint` - Run ESLint across all packages
-- `npm run type-check` - Run TypeScript type checking
+## 📚 Documentation
 
-## Git Setup
-See [GIT_SETUP.md](GIT_SETUP.md) for complete Git repository setup instructions including branch protection rules.
+- [📋 Business Plan](docs/business-plan.md) - Market strategy and revenue model
+- [🏗️ System Architecture](docs/system-architecture.md) - Technical specifications
+- [⚡ Build Plan](docs/build-plan.md) - 12-week development timeline
+- [🔧 Developer Setup](docs/dev-setup.md) - Environment configuration
+- [🚀 CI/CD Setup](docs/ci-cd-setup.md) - Deployment pipelines
 
-## CI/CD
-This project includes GitHub Actions workflows for:
-- Continuous Integration (lint, test, build)
-- Automated deployment
-- Dependency updates
+## 💼 Business Value
 
-## Project Structure
-```
-├── apps/
-│   ├── parent-portal/     # Next.js parent interface
-│   ├── staff-dashboard/   # Next.js staff interface  
-│   └── api/              # NestJS backend API
-├── packages/
-│   ├── design-tokens/    # Shared design tokens
-│   ├── sdk/             # TypeScript API client
-│   └── config/          # Shared configuration
-├── .github/
-│   └── workflows/       # CI/CD workflows
-└── docs/               # Documentation
-```
+### Revenue Streams
+- **SaaS Subscriptions**: $250-$5,000/month per clinic
+- **Professional Services**: Implementation and training
+- **AI Premium Features**: Denial prediction, automated SAR generation
+- **Partner Marketplace**: Integration revenue sharing
 
-## Features
+### Market Opportunity  
+- **$4B+ ABA therapy market** in the U.S.
+- **4-6 week intake delays** industry-wide
+- **High insurance denial rates** costing thousands per client
+- **Expansion potential** across OT, Speech, PT, and daycares
 
-### Parent Portal
-- Child dashboard and progress tracking
-- Schedule management
-- Communication with staff  
-- Progress reports and updates
+## 🛠️ Technology Stack
 
-### Staff Dashboard
-- Child management and profiles
-- Activity planning and tracking
-- Parent communication
-- Report generation
+**Frontend:**
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS + shadcn/ui
+- React Query + Zustand
 
-### API Features
-- RESTful API endpoints
-- Authentication and authorization
-- Data validation and error handling
-- Real-time notifications
+**Backend:**
+- NestJS (TypeScript)
+- PostgreSQL + Redis
+- AWS S3 (document storage)
+- Bull queues (async processing)
 
-## Technology Stack
-- **Frontend**: Next.js 14, React 18, TypeScript, Tailwind CSS
-- **Backend**: NestJS, TypeScript, Express
-- **Tooling**: Turbo (monorepo), ESLint, Prettier
-- **CI/CD**: GitHub Actions
-- **Package Manager**: npm workspaces
+**AI & Integration:**
+- OpenAI/Gemini (SAR generation)
+- AWS Textract (document OCR)
+- Insurance eligibility APIs
+- EHR integrations (Motivity)
+
+**DevOps:**
+- Turborepo (monorepo)
+- GitHub Actions (CI/CD)
+- Docker containers
+- HIPAA compliance tooling
+
+## 🔒 Security & Compliance
+
+- **HIPAA Compliant**: PHI encryption, audit logging, access controls
+- **Multi-tenant Architecture**: Organization-based data isolation
+- **SOC 2 Ready**: Security controls and monitoring
+- **Penetration Testing**: Regular security assessments
+
+## 📈 Growth Strategy
+
+**Phase 1 (Months 1-3):** Core intake workflow MVP
+**Phase 2 (Months 4-6):** AI features and mobile app
+**Phase 3 (Months 7-12):** Multi-discipline expansion
+**Phase 4 (Year 2+):** Enterprise features and marketplace
+
+### Target Metrics
+- **Year 1**: $300K ARR (25 clinics)
+- **Year 3**: $5M ARR (250 clinics + expansion)
+- **Year 5**: $20M ARR (1,000+ clinics, insurer partnerships)
+
+## 🤝 For Stakeholders
+
+### Clinic Owners
+✅ Reduce intake time by 60%  
+✅ Decrease insurance denials by 40%  
+✅ Improve staff productivity  
+✅ Better parent experience  
+
+### Insurance Partners
+✅ Lower administrative costs  
+✅ Cleaner claim submissions  
+✅ Reduced reprocessing overhead  
+✅ Better provider network insights  
+
+### Investors
+✅ Sticky SaaS revenue model  
+✅ Clear expansion path  
+✅ Large addressable market  
+✅ Strong competitive moats  
+
+## 🏃‍♂️ Getting Started
+
+1. **Developers**: See [Developer Setup Guide](docs/dev-setup.md)
+2. **Business Stakeholders**: Review [Business Plan](docs/business-plan.md)  
+3. **Technical Leaders**: Check [System Architecture](docs/system-architecture.md)
+4. **Project Managers**: Follow [Build Plan](docs/build-plan.md)
+
+## 📞 Contact
+
+For questions about partnerships, investment, or technical implementation, please reach out through GitHub Issues or contact the founding team.
+
+---
+
+**InTakeOff** - Transforming healthcare intake, one family at a time. 🚀
