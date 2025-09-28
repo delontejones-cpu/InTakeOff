@@ -15,21 +15,26 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.0.1
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Update dependencies
         run: |
-          npm update
-          npm audit fix || true
+          pnpm update
+          pnpm audit --fix || true
 
       - name: Run tests
         run: |
-          npm ci
-          npm test || echo "Tests failed, will note in PR"
+          pnpm install --frozen-lockfile
+          pnpm test || echo "Tests failed, will note in PR"
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
