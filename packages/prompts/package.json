@@ -1,0 +1,32 @@
+{
+  "name": "@intakeoff/prompts",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.17",
+    "@types/jest": "^29.5.14",
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.9.2"
+  }
+}

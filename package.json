@@ -29,9 +29,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "dev:parent-portal": "npm run dev --workspace=apps/parent-portal",
-    "dev:staff-dashboard": "npm run dev --workspace=apps/staff-dashboard",
-    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "pnpm --filter web dev",
+    "dev:api": "pnpm --filter api dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",

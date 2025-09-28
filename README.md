@@ -4,11 +4,27 @@ A HIPAA-compliant SaaS platform that streamlines the intake process for ABA ther
 
 ## 🏗️ Architecture
 
-**Monorepo Structure:**
-- **Parent Portal** (Next.js) - Mobile-first interface for families
-- **Staff Dashboard** (Next.js) - Clinic management and workflow tools
-- **API Server** (NestJS) - HIPAA-compliant backend with AI integration
-- **Shared Packages** - Design system, SDK, configuration
+**Turborepo Monorepo Structure:**
+
+```
+InTakeOff/
+├── apps/
+│   ├── web/          # Next.js Web Application (Primary Client Interface)
+│   └── api/          # Express.js API Server (Backend Services)
+├── packages/
+│   ├── design-system/  # Shared UI Components & Styling
+│   ├── sdk/           # API Client & Type Definitions
+│   └── prompts/       # AI Prompt Templates & Builders
+├── docs/             # Technical & Business Documentation
+└── .github/          # CI/CD Workflows & Templates
+```
+
+**Application Overview:**
+- **Web App** - HIPAA-compliant client interface for families and staff
+- **API Server** - RESTful backend with AI integration and data processing
+- **Design System** - Consistent UI components across applications
+- **SDK** - Type-safe API client for frontend applications
+- **Prompts** - AI prompt templates for automated documentation
 
 ## 🚀 Quick Start
 
@@ -31,9 +47,8 @@ pnpm dev
 ```
 
 **Access Points:**
-- Parent Portal: http://localhost:3000
-- Staff Dashboard: http://localhost:3001
-- API Server: http://localhost:3002
+- Web Application: http://localhost:3000
+- API Server: http://localhost:3001
 
 ## 📚 Documentation
 
