@@ -1,6 +1,6 @@
 # InTakeOff - ABA Therapy Intake Management Platform
 
-A HIPAA-compliant SaaS platform that streamlines the intake process for ABA therapy clinics, reducing delays from 4-6 weeks to under 2 weeks while improving insurance claim accuracy.
+A HIPAA-compliant SaaS platform that streamlines the intake process for ABA therapy clinics, reducing delays from 4-6 weeks to under 2 weeks while improving insurance claim accuracy and operational efficiency.
 
 ## 🏗️ Architecture
 
