@@ -19,7 +19,7 @@ jobs:
           find . -name "*lock*" -type f
           echo "=== Package.json content ==="
           cat package.json | head -10
-          
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
