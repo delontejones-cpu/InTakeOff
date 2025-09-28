@@ -8,7 +8,7 @@
 Tiered pricing by active clients or licensed staff:
 
 - **Small Clinic Tier**: $250–$500/month
-- **Growth Tier**: $1,000–$2,000/month  
+- **Growth Tier**: $1,000–$2,000/month
 - **Enterprise Tier**: $5,000+/month with AI and white-labeling
 
 ### Setup & Professional Services

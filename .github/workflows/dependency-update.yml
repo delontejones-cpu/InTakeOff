@@ -14,28 +14,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 9
-          
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'pnpm'
-          
+
       - name: Update dependencies
         run: |
           pnpm update --latest
           pnpm audit fix || true
-          
+
       - name: Run tests
         run: |
           pnpm install
           pnpm test || echo "Tests failed, will note in PR"
-          
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -44,18 +44,18 @@ jobs:
           title: 'chore: Automated dependency updates'
           body: |
             ## Automated Dependency Updates
-            
+
             This PR contains automated dependency updates.
-            
+
             ### Changes
             - Updated all dependencies to latest versions
             - Applied security fixes where available
-            
+
             ### Testing
             - [ ] All tests pass
             - [ ] No breaking changes detected
             - [ ] Security vulnerabilities addressed
-            
+
             Please review the changes and test thoroughly before merging.
           branch: automated/dependency-updates
           delete-branch: true

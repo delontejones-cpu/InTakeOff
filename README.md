@@ -6,7 +6,7 @@ A HIPAA-compliant SaaS platform that streamlines the intake process for ABA ther
 
 **Monorepo Structure:**
 - **Parent Portal** (Next.js) - Mobile-first interface for families
-- **Staff Dashboard** (Next.js) - Clinic management and workflow tools  
+- **Staff Dashboard** (Next.js) - Clinic management and workflow tools
 - **API Server** (NestJS) - HIPAA-compliant backend with AI integration
 - **Shared Packages** - Design system, SDK, configuration
 
@@ -51,7 +51,7 @@ pnpm dev
 - **AI Premium Features**: Denial prediction, automated SAR generation
 - **Partner Marketplace**: Integration revenue sharing
 
-### Market Opportunity  
+### Market Opportunity
 - **$4B+ ABA therapy market** in the U.S.
 - **4-6 week intake delays** industry-wide
 - **High insurance denial rates** costing thousands per client
@@ -105,27 +105,27 @@ pnpm dev
 ## 🤝 For Stakeholders
 
 ### Clinic Owners
-✅ Reduce intake time by 60%  
-✅ Decrease insurance denials by 40%  
-✅ Improve staff productivity  
-✅ Better parent experience  
+✅ Reduce intake time by 60%
+✅ Decrease insurance denials by 40%
+✅ Improve staff productivity
+✅ Better parent experience
 
 ### Insurance Partners
-✅ Lower administrative costs  
-✅ Cleaner claim submissions  
-✅ Reduced reprocessing overhead  
-✅ Better provider network insights  
+✅ Lower administrative costs
+✅ Cleaner claim submissions
+✅ Reduced reprocessing overhead
+✅ Better provider network insights
 
 ### Investors
-✅ Sticky SaaS revenue model  
-✅ Clear expansion path  
-✅ Large addressable market  
-✅ Strong competitive moats  
+✅ Sticky SaaS revenue model
+✅ Clear expansion path
+✅ Large addressable market
+✅ Strong competitive moats
 
 ## 🏃‍♂️ Getting Started
 
 1. **Developers**: See [Developer Setup Guide](docs/dev-setup.md)
-2. **Business Stakeholders**: Review [Business Plan](docs/business-plan.md)  
+2. **Business Stakeholders**: Review [Business Plan](docs/business-plan.md)
 3. **Technical Leaders**: Check [System Architecture](docs/system-architecture.md)
 4. **Project Managers**: Follow [Build Plan](docs/build-plan.md)
 

@@ -156,7 +156,7 @@ git push -u origin main
 Your InTakeOff repository is now completely configured and ready for:
 - ✅ Team collaboration
 - ✅ Continuous integration
-- ✅ Security compliance  
+- ✅ Security compliance
 - ✅ Healthcare regulations
 - ✅ Business development
 - ✅ Technical implementation

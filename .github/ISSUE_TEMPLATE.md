@@ -1,11 +1,11 @@
-<!-- 
+<!--
 InTakeOff Issue Template
 Use this template to report bugs, request features, or ask questions.
 -->
 
 ## Issue Type
 - [ ] Bug Report
-- [ ] Feature Request  
+- [ ] Feature Request
 - [ ] Question/Discussion
 - [ ] Documentation Update
 
@@ -15,14 +15,14 @@ Use this template to report bugs, request features, or ask questions.
 ## Expected Behavior
 <!-- What did you expect to happen? -->
 
-## Actual Behavior  
+## Actual Behavior
 <!-- What actually happened? -->
 
 ## Steps to Reproduce
 <!-- For bugs, provide detailed steps to reproduce the issue -->
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Environment
 <!-- Please complete the following information -->

@@ -10,7 +10,7 @@ This guide outlines the development environment prerequisites and setup instruct
 - **Version**: Node.js 20.x (LTS recommended)
 - **Download**: https://nodejs.org/
 - **Installation**: Download and install the LTS version
-- **Verification**: 
+- **Verification**:
   ```bash
   node --version  # Should show v20.x.x
   ```
@@ -21,7 +21,7 @@ This guide outlines the development environment prerequisites and setup instruct
   ```bash
   # Enable corepack (comes with Node.js 16.10+)
   corepack enable
-  
+
   # Install/update pnpm
   corepack prepare pnpm@latest --activate
   ```
@@ -48,7 +48,7 @@ This guide outlines the development environment prerequisites and setup instruct
 - **Version**: Docker Desktop for Windows
 - **Download**: https://www.docker.com/products/docker-desktop/
 - **Installation**: Download and install Docker Desktop
-- **Requirements**: 
+- **Requirements**:
   - Windows 10/11 64-bit
   - WSL 2 backend (recommended)
   - Hyper-V enabled
@@ -199,7 +199,7 @@ pnpm dev
 
 # Applications will be available at:
 # - Parent Portal: http://localhost:3000
-# - Staff Dashboard: http://localhost:3001  
+# - Staff Dashboard: http://localhost:3001
 # - API Server: http://localhost:3002
 ```
 
@@ -322,7 +322,7 @@ try {
 The project includes a VS Code workspace configuration with:
 
 - **Consistent formatting settings** for TypeScript/React
-- **ESLint and Prettier integration** for code quality  
+- **ESLint and Prettier integration** for code quality
 - **Tailwind CSS class sorting** and IntelliSense
 - **Debugger configuration** for Next.js and NestJS
 - **Test runner integration** for Vitest and Playwright
