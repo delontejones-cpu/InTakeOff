@@ -16,18 +16,18 @@ This guide outlines the development environment prerequisites and setup instruct
   ```
 
 #### 2. pnpm ≥9 (via corepack)
-- **Version**: pnpm 9.0.0 or higher
+- **Version**: pnpm 9.0.1 or higher
 - **Installation via corepack**:
   ```bash
   # Enable corepack (comes with Node.js 16.10+)
   corepack enable
 
-  # Install/update pnpm
-  corepack prepare pnpm@latest --activate
+  # Install/update pnpm to specific version
+  corepack prepare pnpm@9.0.1 --activate
   ```
 - **Verification**:
   ```bash
-  pnpm --version  # Should show 9.x.x or higher
+  pnpm --version  # Should show 9.0.1 or higher
   ```
 
 #### 3. Git
