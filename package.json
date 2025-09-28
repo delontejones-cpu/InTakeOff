@@ -1,0 +1,139 @@
+{
+  "name": "intakeoff",
+  "version": "1.0.0",
+  "description": "HIPAA-compliant ABA therapy intake management platform streamlining patient onboarding, insurance verification, and document processing for autism therapy providers.",
+  "keywords": [
+    "healthcare",
+    "aba-therapy",
+    "hipaa-compliant",
+    "intake-management",
+    "autism-therapy",
+    "medical-forms",
+    "insurance-integration",
+    "document-processing",
+    "therapy-platform"
+  ],
+  "homepage": "https://github.com/delontejones-cpu/InTakeOff#readme",
+  "bugs": {
+    "url": "https://github.com/delontejones-cpu/InTakeOff/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delontejones-cpu/InTakeOff.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Delonte Jones",
+    "email": "hello@intakeoff.com"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "turbo test",
+    "test:coverage": "turbo test:coverage",
+    "e2e": "turbo e2e",
+    "type-check": "turbo type-check",
+    "clean": "turbo clean",
+    "db:generate": "turbo db:generate",
+    "db:push": "turbo db:push",
+    "db:migrate": "turbo db:migrate",
+    "db:studio": "turbo db:studio",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up -d",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up -d",
+    "docker:down": "docker-compose down",
+    "security:audit": "npm audit --audit-level=moderate",
+    "security:fix": "npm audit fix",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
+    "@types/node": "^20.8.6",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-security": "^1.7.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.16",
+    "typescript": "^5.2.2"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "private": true,
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": [
+          ".next/**",
+          "!.next/cache/**",
+          "dist/**"
+        ]
+      },
+      "lint": {
+        "outputs": []
+      },
+      "test": {
+        "outputs": []
+      },
+      "test:coverage": {
+        "outputs": [
+          "coverage/**"
+        ]
+      },
+      "e2e": {
+        "outputs": []
+      },
+      "type-check": {
+        "outputs": []
+      },
+      "dev": {
+        "cache": false,
+        "persistent": true
+      },
+      "db:generate": {
+        "outputs": []
+      },
+      "db:push": {
+        "outputs": []
+      },
+      "db:migrate": {
+        "outputs": []
+      },
+      "db:studio": {
+        "cache": false,
+        "persistent": true
+      }
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  }
+}
