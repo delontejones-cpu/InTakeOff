@@ -33,8 +33,12 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:parent-portal": "npm run dev --workspace=apps/parent-portal",
+    "dev:staff-dashboard": "npm run dev --workspace=apps/staff-dashboard",
+    "dev:api": "npm run dev --workspace=apps/api",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "test": "turbo test",
     "test:coverage": "turbo test:coverage",
     "e2e": "turbo e2e",
@@ -63,15 +67,15 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-security": "^1.7.1",
     "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
+    "lint-staged": "^16.2.1",
     "prettier": "^3.0.3",
     "turbo": "^1.10.16",
     "typescript": "^5.2.2"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "npm@10.0.0",
   "engines": {
     "node": ">=20.0.0",
-    "pnpm": ">=9.0.0"
+    "npm": ">=10.0.0"
   },
   "private": true,
   "turbo": {

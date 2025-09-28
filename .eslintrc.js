@@ -21,13 +21,13 @@ module.exports = {
     'security/detect-non-literal-fs-filename': 'warn',
     'security/detect-possible-timing-attacks': 'warn',
     'security/detect-unsafe-regex': 'error',
-    
+
     // TypeScript specific rules
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    
+
     // General code quality
     'no-console': 'warn',
     'no-debugger': 'error',
